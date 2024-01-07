@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const bodyParser = require('body-parser'); 
+const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -12,8 +12,8 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const hpp = require('hpp');
 
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({ limit: '50mb' , extended: true}));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 app.use(cors());
 app.use(helmet());
@@ -39,14 +39,14 @@ mongoose.connect(process.env.MONGO_URI, {
 
 //Routing implementation
 const router = require('./src/routes/api');
-app.use("/api/v1", router);
+app.use("/api", router);
 app.use('*', (req, res) => {
-    if (req.baseUrl === ''){
+    if (req.baseUrl === '') {
         res.status(200).send('<h1 style="text-align:center">Module 18 Assignment</h1>')
-    }else{
+    } else {
         res.status(404).send('<h1 style="text-align:center">404 Not Found<h1>')
     }
 })
 
 
-module.exports = app ;
+module.exports = app;
